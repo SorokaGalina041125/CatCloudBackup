@@ -97,20 +97,23 @@ class CatCloudBackup:
     
     def _generate_filename(self, text: str) -> str:
         """
-        Генерирует безопасное имя файла из текста.
+        Генерирует уникальное имя файла из текста с временной меткой.
         
         Args:
             text: Исходный текст
             
         Returns:
-            Безопасное имя файла с расширением .jpg
+            Уникальное имя файла с расширением .jpg
         """
         # Заменяем небезопасные символы
         forbidden_chars = " /\\:*?\"<>|"
         filename = text
         for char in forbidden_chars:
             filename = filename.replace(char, "_")
-        return f"{filename}.jpg"
+        
+        # Добавляем временную метку с миллисекундами для уникальности
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]
+        return f"{filename}_{timestamp}.jpg"
     
     def _get_upload_url(self, remote_path: str) -> str:
         """
@@ -275,7 +278,7 @@ class CatCloudBackup:
         # Получаем картинку
         image_data = self._download_cat_image(text)
         
-        # Формируем имя файла
+        # Формируем уникальное имя файла
         filename = self._generate_filename(text)
         
         # Загружаем на Яндекс.Диск
