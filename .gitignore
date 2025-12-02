@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# Виртуальное окружение
+venv/
+env/
+.venv/
+
+# Конфиденциальные данные
+.env
+.env.local
+
+# Файлы IDE
+.vscode/
+.idea/
+
+# Файлы, создаваемые программой
+backup_info.json
+*.log
